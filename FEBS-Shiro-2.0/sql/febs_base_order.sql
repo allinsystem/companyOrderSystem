@@ -22,14 +22,14 @@ create table IF NOT EXISTS t_employee_master
 
 create table IF NOT EXISTS t_inovice_form
 (
-    inovice_id numeric NOT NULL,
+    invoice_id numeric NOT NULL,
     customer_id numeric NOT NULL,
     employee_id numeric NOT NULL,
-    inovice_date date NOT NULL,
+    invoice_date date NOT NULL,
     project_name varchar(50) NOT NULL,
     count int NOT NULL,
     price decimal(15,2)  NOT NULL,
-    PRIMARY KEY (inovice_id),
+    PRIMARY KEY (invoice_id),
     FOREIGN KEY(customer_id)
         REFERENCES t_customers_master(customer_id),
     FOREIGN KEY(employee_id)

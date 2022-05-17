@@ -20,7 +20,7 @@ create table IF NOT EXISTS t_employee_master
     PRIMARY KEY (employee_id)
 );
 
-create table IF NOT EXISTS t_inovice_form
+create table IF NOT EXISTS t_invoice_form
 (
     invoice_id numeric NOT NULL,
     customer_id numeric NOT NULL,

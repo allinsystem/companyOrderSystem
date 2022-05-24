@@ -1,5 +1,7 @@
 package cc.mrbird.febs.system.service;
 
+import java.io.File;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 
 import javax.servlet.http.HttpServletResponse;
@@ -11,6 +13,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 import cc.mrbird.febs.system.entity.Invoice;
@@ -19,12 +22,13 @@ import cc.mrbird.febs.system.repository.UserDetailRepository;
 
 
 
+
 @Service
 public class UserServiceDL {
+
     @Autowired
     private UserDetailRepository userDetailRepository;
-//    @Autowired
-//    private UserRepository userRepository;
+
     /**
      * ユーザー情報 主キー検索
      * @return 検索結果
@@ -37,10 +41,13 @@ public class UserServiceDL {
 
 
     public void downLoadUserInfoByTemplate( Long id,HttpServletResponse response)throws Exception{
-
-    	final String templateFile = "E:\\javawork\\FEBS-Shiro-2.0\\src\\main\\resources\\templates\\spexcel.xlsx";
-    	//File templateFile = new File("spexcel.xlsx"); //サンプル取得
-    	Workbook workbook = new XSSFWorkbook(templateFile);
+    	/**
+    	 * 20220524
+    	 * サンプル取得先更新
+    	 */
+    	ClassPathResource templateFile = new ClassPathResource("templates" + File.separator + "spexcel.xlsx");
+    	InputStream in = templateFile.getInputStream();
+    	Workbook workbook = new XSSFWorkbook(in);
     	Sheet sheet =workbook.getSheetAt(0);
 
 		CellStyle style = workbook.createCellStyle();
@@ -78,6 +85,9 @@ public class UserServiceDL {
 		ResponseUtil.export(response, workbook, "請求書.xlsx");
 
 
+
     }
+
+
 
 }

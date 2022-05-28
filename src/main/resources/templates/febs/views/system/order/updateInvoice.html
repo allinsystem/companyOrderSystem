@@ -1,0 +1,99 @@
+<style>
+    #user-update {
+        padding: 20px 25px 25px 0;
+    }
+</style>
+<div class="layui-fluid" id="user-update" >
+    <form class="layui-form" action="" lay-filter="user-update-form" >
+<!--             <div class="layui-input-block"> -->
+<!--                 <input type="text" name="userId" data-th-value="${invoiceDate}"> -->
+<!--             </div> -->
+
+    <div>
+			<span class="layui-icon layui-icon-user"></span>名前：
+			<input type="text" th:filed="*{id}" lay-verify="customerName"  class="layui-input"/>
+			[[${orderDetail.customerName}]]
+		</div>
+
+
+
+		<div>
+			<span class="layui-icon layui-icon-time"></span>請求日：
+
+			[[${invoiceDate}]]
+
+		</div>
+
+
+		<div>
+			<span class="layui-icon layui-icon-user"></span>作業者名：[[${orderDetail.employeeName}]]
+		</div>
+
+
+
+		<div>
+			<span class="layui-icon layui-icon-read"></span>作業名：
+			[[${orderDetail.projectName}]]
+		</div>
+
+
+
+		<div>
+			<span class="layui-icon layui-icon-form"></span>数量：[[${orderDetail.count}]]
+		</div>
+
+
+
+		<div>
+			<span class="layui-icon layui-icon-rmb"></span>単価：[[${orderDetail.price}]]
+		</div>
+
+
+
+	        <div class="layui-form-item febs-hide">
+            <label class="layui-form-label febs-form-item-require">用户id：</label>
+            <div class="layui-input-block">AA:
+                <input type="text" name="userId" >
+            </div>
+        </div>
+
+<!--         <div class="layui-form-item"> -->
+<!--             <label class="layui-form-label febs-form-item-require">用户名：</label> -->
+<!--             <div class="layui-input-block"> -->
+<!--                 <input type="text" name="username" minlength="4" maxlength="10" data-th-id="" -->
+<!--                        lay-verify="range|username" autocomplete="off" class="layui-input" readonly> -->
+<!--             </div> -->
+<!--         </div> -->
+<!--         <div class="layui-form-item"> -->
+<!--             <label class="layui-form-label">手机：</label> -->
+<!--             <div class="layui-input-block"> -->
+<!--                 <input type="tel" name="mobile" lay-verify="phone" autocomplete="off" class="layui-input"> -->
+<!--             </div> -->
+<!--         </div> -->
+<!--         <div class="layui-form-item"> -->
+<!--             <label class="layui-form-label">邮箱：</label> -->
+<!--             <div class="layui-input-block"> -->
+<!--                 <input type="text" name="email" lay-verify="email" maxlength="50" autocomplete="off" -->
+<!--                        class="layui-input"> -->
+<!--             </div> -->
+<!--         </div> -->
+<!--         <div class="layui-form-item"> -->
+<!--             <label class="layui-form-label febs-form-item-require">角色：</label> -->
+<!--             <div class="layui-input-block" id="user-update-role"></div> -->
+<!--         </div> -->
+<!--         <div class="layui-form-item"> -->
+<!--             <label class="layui-form-label">部门：</label> -->
+<!--             <div class="layui-input-block" id="user-update-dept"></div> -->
+<!--         </div> -->
+
+
+<!--         <div class="layui-form-item"> -->
+<!--             <label class="layui-form-label">数据权限：</label> -->
+<!--             <div class="layui-input-block" id="user-update-data-permission"></div> -->
+<!--         </div> -->
+
+<!--         <div class="layui-form-item febs-hide"> -->
+<!--             <button class="layui-btn" lay-submit="" lay-filter="user-update-form-submit" id="submit"></button> -->
+<!--         </div> -->
+    </form>
+</div>

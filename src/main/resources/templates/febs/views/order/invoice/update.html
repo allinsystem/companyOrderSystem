@@ -1,0 +1,150 @@
+<style>
+    #invoice-update {
+        padding: 20px 25px 25px 0;
+    }
+</style>
+<div class="layui-fluid" id="invoice-update">
+    <form class="layui-form" action="" lay-filter="invoice-update-form">
+        <div class="layui-form-item febs-hide">
+            <label class="layui-form-label febs-form-item-require">発注書id：</label>
+            <div class="layui-input-block">
+                <input type="text" name="id" data-th-value="${invoice.id}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label febs-form-item-require">会社名：</label>
+            <div class="layui-input-block" id="invoice-update-customerName"></div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label febs-form-item-require">従業員名：</label>
+            <div class="layui-input-block" id="invoice-update-employeeName"></div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label　febs-form-item-require">プロジェクト：</label>
+            <div class="layui-input-block">
+                <input type="text" name="projectName" maxlength="25" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label　febs-form-item-require">数量：</label>
+            <div class="layui-input-block">
+                <input type="text" name="count" maxlength="18" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label　febs-form-item-require">単価：</label>
+            <div class="layui-input-block">
+                <input type="text" name="price" maxlength="18" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item febs-hide">
+            <button class="layui-btn" lay-submit="" lay-filter="invoice-update-form-submit" id="submit"></button>
+        </div>
+    </form>
+</div>
+
+<script data-th-inline="javascript">
+    layui.use(['febs', 'form', 'xmSelect', 'validate'], function () {
+        let $ = layui.$,
+            febs = layui.febs,
+            layer = layui.layer,
+            form = layui.form,
+            xmSelect = layui.xmSelect,
+            invoice = [[${invoice}]],
+            customer = [[${customer}]],
+            employee = [[${employee}]],
+            validate = layui.validate,
+            customerXmlSelect,
+            employeeXmlSelect;
+
+        form.verify(validate);
+        form.render();
+
+        initinvoiceValue();
+
+        customerXmlSelect = xmSelect.render({
+            el: '#invoice-update-customer',
+            model: {label: {type: 'text'}},
+            tree: {
+                show: true,
+                strict: false,
+                showLine: false,
+                clickCheck: true,
+                expandedKeys: [-1],
+            },
+            name: 'customerId',
+            theme: {
+                color: '#52c41a',
+            },
+            prop: {
+                name: 'customerName',
+                value: 'customerId'
+            },
+            height: 'auto',
+            on: function (data) {
+                if (data.isAdd) {
+                    return data.change.slice(0, 1)
+                }
+            }
+        });
+        febs.get(ctx + 'invoice/customerName/list', null, function (data) {
+            deptXmlSelect.update({
+                data: data.data,
+                autoRow: true,
+            })
+             customerXmlSelect.setValue(customer.customerId.split(','));
+        });
+
+        employeeXmlSelect = xmSelect.render({
+            el: '#invoice-update-employee',
+            toolbar: {show: true},
+            name: 'employeeid',
+            theme: {
+                color: '#32c787',
+            },
+            prop: {
+                name: 'employeeName',
+                value: 'employeeId'
+            },
+            data: []
+        });
+
+        febs.get(ctx + 'invoice/customerName/list', null, function (data) {
+            employeeXmlSelect.update({
+                data: data.data,
+                autoRow: true,
+            })
+            employeeXmlSelect.setValue(employee.employeeid.split(','));
+        });
+
+        function initinvoiceValue() {
+            form.val("invoice-update-form", {
+                "customerName": invoice.customerName,
+                "employeeName": invoice.employeeName,
+                "projectName": invoice.projectName,
+                "count": invoice.count,
+                "price": invoice.price,
+            });
+        }
+
+        form.on('submit(invoice-update-form-submit)', function (data) {
+            if (!data.field.employeeid) {
+                febs.alert.warn('従業員未選択');
+                return false;
+            }
+            if (febs.nativeEqual(data.field, invoice)) {
+                febs.alert.warn('変更されたデータがありません');
+                return false;
+            }
+            febs.post(ctx + 'invoice/update', data.field, function () {
+                layer.closeAll();
+                febs.alert.success('更新されました');
+                $('#febs-invoice').find('#query').click();
+            });
+            return false;
+        });
+    });
+</script>

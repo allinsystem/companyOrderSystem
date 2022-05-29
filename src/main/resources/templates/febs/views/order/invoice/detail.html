@@ -1,0 +1,60 @@
+<style>
+    #febs-invoice-detail #invoice-img, #febs-invoice-detail .invoice-info {
+        display: inline-block;
+        float: left;
+        margin-left: 15px;
+    }
+
+    #febs-invoice-detail #invoice-img img {
+        width: 7rem;
+        margin: 10px 10px 0 20px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    #febs-invoice-detail #invoice-info-wrapper {
+        margin: 0 0 1rem 0;
+        display: inline-block;
+    }
+
+    #febs-invoice-detail .invoice-info div {
+        margin: 10px 15px;
+        max-width: 19rem;
+    }
+
+    #febs-invoice-detail #options-wrapper a {
+        padding: 4px 6px;
+        color: rgba(0, 0, 0, 0.65);
+        border: 1px solid #d9d9d9;
+        border-radius: 2px;
+    }
+
+    #febs-invoice-detail #options-wrapper a:hover {
+        color: #40a9ff;
+        border-color: #40a9ff;
+    }
+
+</style>
+<div class="layui-fluid" id="febs-invoice-detail" lay-title="請求書・発注書">
+    <div id="invoice-info-wrapper">
+        <div class="invoice-info">
+            <div><span class="layui-icon layui-icon-group"></span> 会社名：
+                [[${invoice.customerName}]]
+            </div>
+            <div><span class="layui-icon layui-icon-username"></span> 従業員名：
+                [[${invoice.employeeName}]]
+            </div>
+            <div><span class="layui-icon layui-icon-form"></span> プロジェクト：
+                [[${invoice.projectName}]]
+            </div>
+        </div>
+        <div class="invoice-info">
+            <div><span class="layui-icon layui-icon-snowflake"></span> 数量：
+                [[${invoice.count}]]
+            </div>
+            <div><span class="layui-icon layui-icon-rmb"></span> 単価：
+                [[${invoice.price}]]
+            </div>
+        </div>
+    </div>
+</div>

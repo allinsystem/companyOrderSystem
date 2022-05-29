@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.mrbird.febs.system.mapper.CustomersMasterMapper">
+    <sql id="findAllCustomerSQL">
+        SELECT
+            c.customer_id customerId,
+            c.customer_name customerName
+        FROM
+            t_customers_master c
+    </sql>
+    <select id="findAllCustomer" resultType="customer">
+        <include refid="findAllCustomerSQL"/>
+    </select>
+</mapper>

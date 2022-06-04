@@ -1,15 +1,9 @@
 package cc.mrbird.febs.system.controller;
 
-import cc.mrbird.febs.common.controller.BaseController;
-import cc.mrbird.febs.common.entity.FebsConstant;
-import cc.mrbird.febs.common.utils.DateUtil;
-import cc.mrbird.febs.common.utils.FebsUtil;
-import cc.mrbird.febs.system.entity.Customer;
-import cc.mrbird.febs.system.entity.Invoice;
-import cc.mrbird.febs.system.entity.User;
-import cc.mrbird.febs.system.service.IUserDataPermissionService;
-import cc.mrbird.febs.system.service.*;
-import lombok.RequiredArgsConstructor;
+import java.text.SimpleDateFormat;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.session.ExpiredSessionException;
 import org.springframework.stereotype.Controller;
@@ -20,7 +14,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
+import cc.mrbird.febs.common.controller.BaseController;
+import cc.mrbird.febs.common.entity.FebsConstant;
+import cc.mrbird.febs.common.utils.DateUtil;
+import cc.mrbird.febs.common.utils.FebsUtil;
+import cc.mrbird.febs.system.entity.Invoice;
+import cc.mrbird.febs.system.entity.User;
+import cc.mrbird.febs.system.service.ICustomerService;
+import cc.mrbird.febs.system.service.IInvoiceService;
+import cc.mrbird.febs.system.service.IUserDataPermissionService;
+import cc.mrbird.febs.system.service.IUserService;
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author MrBird
@@ -147,6 +151,9 @@ public class ViewController extends BaseController {
     public String systemInvoiceDetail(@PathVariable String id, Model model) {
         Invoice invoice = invoiceService.searchInvoiceById(id);
         model.addAttribute("invoice",invoice);
+		String strInvoiceDate = new SimpleDateFormat("yyyy-MM-dd ").format(invoice.getInvoiceDate());
+		model.addAttribute("invoiceDate", strInvoiceDate);
+
         return FebsUtil.view("order/invoice/detail");
     }
 
@@ -156,7 +163,7 @@ public class ViewController extends BaseController {
         Invoice invoice = invoiceService.searchInvoiceById(id);
         String customers = customerService.findAllCustomer();
         model.addAttribute("invoice",invoice);
-        return FebsUtil.view("order/invoice/detail");
+        return FebsUtil.view("order/invoice/update");
     }
 
     @RequestMapping(FebsConstant.VIEW_PREFIX + "index")

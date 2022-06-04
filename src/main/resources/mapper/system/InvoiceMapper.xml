@@ -66,4 +66,7 @@
     <select id="countInvoiceDetail" parameterType="invoice" resultType="long">
         <include refid="countInvoiceDetailSQL"/>
     </select>
+
+
 </mapper>
+

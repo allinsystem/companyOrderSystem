@@ -1,24 +1,31 @@
 package cc.mrbird.febs.system.controller;
 
-import cc.mrbird.febs.common.annotation.ControllerEndpoint;
-import cc.mrbird.febs.common.entity.Strings;
-import cc.mrbird.febs.common.controller.BaseController;
-import cc.mrbird.febs.common.entity.FebsResponse;
-import cc.mrbird.febs.common.entity.QueryRequest;
-import cc.mrbird.febs.system.entity.Invoice;
-import cc.mrbird.febs.system.service.IInvoiceService;
-import lombok.extern.slf4j.Slf4j;
-import lombok.RequiredArgsConstructor;
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Controller;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
-import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import cc.mrbird.febs.common.annotation.ControllerEndpoint;
+import cc.mrbird.febs.common.controller.BaseController;
+import cc.mrbird.febs.common.entity.FebsResponse;
+import cc.mrbird.febs.common.entity.QueryRequest;
+import cc.mrbird.febs.common.entity.Strings;
+import cc.mrbird.febs.system.entity.Invoice;
+import cc.mrbird.febs.system.service.IInvoiceService;
+import cc.mrbird.febs.system.service.impl.InvoiceServiceImpl;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Validated
@@ -77,4 +84,18 @@ public class InvoiceController extends BaseController {
 //    @RequiresPermissions("order:export")
     public void export(QueryRequest queryRequest, String ids, HttpServletResponse response) {
     }
+
+    /**
+     * Excel 出力
+     */
+    @Autowired
+
+    InvoiceServiceImpl invoiceServiceImpl;
+    @GetMapping("download/{id}")
+
+    public void excel_down(@PathVariable String id,HttpServletResponse response)throws Exception{
+    	invoiceServiceImpl.downLoadUserInfoByTemplate(id, response);
+
+	}
+
 }

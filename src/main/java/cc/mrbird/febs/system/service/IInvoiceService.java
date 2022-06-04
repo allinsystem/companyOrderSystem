@@ -1,12 +1,10 @@
 package cc.mrbird.febs.system.service;
 
-import cc.mrbird.febs.system.entity.Invoice;
-
-import cc.mrbird.febs.common.entity.QueryRequest;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 
-import java.util.List;
+import cc.mrbird.febs.common.entity.QueryRequest;
+import cc.mrbird.febs.system.entity.Invoice;
 
 /**
  *  Service接口
@@ -52,4 +50,8 @@ public interface IInvoiceService extends IService<Invoice> {
      * @param invoiceIds invoice
      */
     void deleteInvoice(String[] invoiceIds);
+
+
+
+
 }

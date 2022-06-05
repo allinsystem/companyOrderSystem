@@ -141,10 +141,10 @@ public class ViewController extends BaseController {
         return FebsUtil.view("system/dept/dept");
     }
 
-    @GetMapping(FebsConstant.VIEW_PREFIX + "order/order")
+    @GetMapping(FebsConstant.VIEW_PREFIX + "order/invoice")
     @RequiresPermissions("order:view")
     public String systemOrder() {
-        return FebsUtil.view("order/order");
+        return FebsUtil.view("order/invoice");
     }
     @GetMapping(FebsConstant.VIEW_PREFIX + "order/invoice/detail/{id}")
     @RequiresPermissions("order:view")

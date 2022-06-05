@@ -49,7 +49,7 @@ public class Invoice implements Serializable {
     /**
      *
      */
-    @JsonFormat(pattern = "yyyy年MM月dd日 ", timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy年MM月dd日 ", timezone = "Asia/Tokyo")
     @TableField("invoice_date")
     private Date invoiceDate;
 
